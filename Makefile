@@ -11,8 +11,8 @@ clean:
 ########### local build:
 
 LOCAL_GOPATH=${PWD}/.go_path
-DOOZERD_GO_PATH=$(LOCAL_GOPATH)/src/github.com/soundcloud/doozerd
-DOOZER_GO_PATH=$(LOCAL_GOPATH)/src/github.com/soundcloud/doozer/cmd/doozer
+DOOZERD_GO_PATH=$(LOCAL_GOPATH)/src/github.com/dcjones/doozerd
+DOOZER_GO_PATH=$(LOCAL_GOPATH)/src/github.com/dcjones/doozer/cmd/doozer
 
 unexport GIT_DIR
 
@@ -23,13 +23,13 @@ build: fmt package bump_package_release
 $(LOCAL_GOPATH)/src:
 	mkdir -p $(LOCAL_GOPATH)/src
 
-$(LOCAL_GOPATH)/src/github.com/soundcloud/doozer: $(LOCAL_GOPATH)/src
-	GOPATH=$(LOCAL_GOPATH) go get github.com/soundcloud/doozer
+$(LOCAL_GOPATH)/src/github.com/dcjones/doozer: $(LOCAL_GOPATH)/src
+	GOPATH=$(LOCAL_GOPATH) go get github.com/dcjones/doozer
 
 $(LOCAL_GOPATH)/src/github.com/bmizerany/assert: $(LOCAL_GOPATH)/src
 	GOPATH=$(LOCAL_GOPATH) go get github.com/bmizerany/assert
 
-local_build: $(LOCAL_GOPATH)/src/github.com/soundcloud/doozer $(LOCAL_GOPATH)/src/github.com/bmizerany/assert
+local_build: $(LOCAL_GOPATH)/src/github.com/dcjones/doozer $(LOCAL_GOPATH)/src/github.com/bmizerany/assert
 	test -e $(DOOZERD_GO_PATH) || { mkdir -p $$(dirname $(DOOZERD_GO_PATH) ); ln -sf $${PWD} $(DOOZERD_GO_PATH); }
 	# instead of patching the make.sh file or tweak the go install command, we ignore errors and call 'go build' afterwards
 	-GOPATH=$(LOCAL_GOPATH) go get -v .
@@ -41,7 +41,7 @@ local_build: $(LOCAL_GOPATH)/src/github.com/soundcloud/doozer $(LOCAL_GOPATH)/sr
 
 ########## packaging
 FPM_EXECUTABLE:=$$(dirname $$(dirname $$(gem which fpm)))/bin/fpm
-FPM_ARGS=-t deb -m 'Doozerd authors (see page), Daniel Bornkessel <daniel@soundcloud.com> (packaging)' --url http://github.com/soundcloud/doozerd -s dir
+FPM_ARGS=-t deb -m 'Doozerd authors (see page), Daniel Bornkessel <daniel@dcjones.com> (packaging)' --url http://github.com/dcjones/doozerd -s dir
 FAKEROOT=fakeroot
 RELEASE=$$(cat .release 2>/dev/null || echo "0")
 VERSION:=$$(GIT_DIR=$${PWD}/.git $${PWD}/version.sh | sed 's/+.*//g')

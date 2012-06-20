@@ -2,7 +2,7 @@ package gc
 
 import (
 	"github.com/bmizerany/assert"
-	"github.com/soundcloud/doozerd/store"
+	"github.com/dcjones/doozerd/store"
 	"testing"
 )
 

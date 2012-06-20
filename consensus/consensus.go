@@ -1,7 +1,7 @@
 package consensus
 
 import (
-	"github.com/soundcloud/doozerd/store"
+	"github.com/dcjones/doozerd/store"
 )
 
 type Proposer interface {
