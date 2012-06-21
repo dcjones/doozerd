@@ -7,7 +7,6 @@
 .roundup.*
 doc/*.html
 doc/*.[0-9]
-peer/version.go
 .go_path
 doozerd
 doozer
