@@ -63,6 +63,7 @@ type msg struct {
 
 func (this *msg) Reset()         { *this = msg{} }
 func (this *msg) String() string { return proto.CompactTextString(this) }
+func (this *msg) ProtoMessage()  {}
 
 func init() {
 	proto.RegisterEnum("consensus.msg_Cmd", msg_Cmd_name, msg_Cmd_value)
